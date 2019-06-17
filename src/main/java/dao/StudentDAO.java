@@ -13,34 +13,37 @@ import java.sql.Statement;
 import beans.Student;
 
 public class StudentDAO{
-
 	//  属性
 
+	// ホスト名
+	private final static String HOST_NAME = "db";
+
+	// データベース名
+	private final static String DATABASE_NAME = "system_design";
+
 	//  データベースの接続先アドレスを静的変数として記述
-	private final static String DRIVER_URL =
-		"jdbc:mysql://localhost:3306/student?useUnicode=true&characterEncoding=Windows-31J";
+	private final static String DRIVER_URL = "jdbc:mysql://" + HOST_NAME + ":3306/" + DATABASE_NAME + "?useUnicode=true&characterEncoding=utf-8";
 
 	//  データベース接続ドライバの名前を静的変数として記述
-	private final static String DRIVER_NAME = "com.mysql.jdbc.Driver";
+	private final static String DRIVER_NAME = "com.mysql.cj.jdbc.Driver";
 
 	//  データベースのユーザー名　（デフォルトではroot）
 	private final static String USER_NAME = "root";
 
 	//  データベースのユーザーのパスワード　(デフォルトでは設定なし)
-	private final static String PASSWORD = "";
+	private final static String PASSWORD = "root";
 
 	//  データベースとの接続を行う
 	//  データベースの接続情報を持ったConnectionオブジェクトを返す
-	public Connection createConnection(){
-		try{
+	public Connection createConnection() {
+		try {
 			Class.forName(DRIVER_NAME);
-			Connection con = DriverManager.getConnection(DRIVER_URL, USER_NAME, PASSWORD);
-			return con;
-		} catch(ClassNotFoundException e){
+			Connection connection = DriverManager.getConnection(DRIVER_URL, USER_NAME, PASSWORD);
+			return connection;
+		} catch (ClassNotFoundException e) {
 			System.out.println("Can't Find JDBC Driver.\n");
-
-		} catch(SQLException e){
-			System.out.println("Connect Error.\n");
+		} catch (SQLException e) {
+			System.out.println("Connection Error.\n");
 		}
 		return null;
 	}

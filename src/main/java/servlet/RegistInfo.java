@@ -67,6 +67,6 @@ import control.StudentManager;
 
 		//  成功画面を表示する
 		//System.out.println("OK牧場");
-		response.sendRedirect("/StuInfo/RegistInfo");
+		response.sendRedirect("/RegistInfo");
 		}
 }
